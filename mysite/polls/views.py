@@ -1,26 +1,34 @@
 from django.shortcuts import render
-
+from django.template import loader
 from django.http import HttpResponse
-
+from django.http import Http404
+from django.shortcuts import get_object_or_404, render
+from .models import Question
 
 def index(request):
-    return HttpResponse('''
-        <script>
-            var increas() = function(){
-                alert("hello html world)
-            }
-         </script>
-        <button style="background-color:red" onclick="increas()"> hello world </button>
-        <br></br>
-        <input></input>
-        <br></br>
-        <select></select>
-        
+    latest_question_list = Question.objects.order_by("-pub_date")[:5]
+    context = {"latest_question_list": latest_question_list}
+    return render(request, "polls/index.html", context)
 
+def counter(request):
+    text_fils= open("./templates/counter.html")
+    page=text_fils.read()
+    text_fils.close()
+    return HttpResponse(page)
 
-        
-        
-        
+def basic(request):
+    text_fils= open("./templates/basic.html")
+    page=text_fils.read()
+    text_fils.close()
+    return HttpResponse(page)
 
-        
-                        ''')
+def detail(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, "polls/detail.html", {"question": question})
+
+def results(request, question_id):
+    response = "You're looking at the results of question %s."
+    return HttpResponse(response % question_id)
+
+def vote(request, question_id):
+    return HttpResponse("You're voting on question %s." % question_id)
