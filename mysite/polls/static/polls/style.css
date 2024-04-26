@@ -1,4 +1,4 @@
-li a {
+li{
     color: cornsilk;
     text-decoration: none;
 }
@@ -8,4 +8,17 @@ ul{
 body {
     background: white url("images/tlo.png") no-repeat;
     font-size: x-large;
+}
+h1{
+    color: tan;
+}
+input{
+    color: cornsilk;
+    background-image: url(images/tlo.png);
+}
+label{
+    color: cornsilk;
+}
+a{
+    color: tan;
 }
